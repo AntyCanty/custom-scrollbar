@@ -80,6 +80,9 @@
         background-color: #000814;
         height: 200px;
         padding: 1em;
+        display:flex;
+        align-items:center;
+        justify-content: center;
       }
 
       .item:hover {
@@ -91,6 +94,14 @@
 
       #scroller::-webkit-scrollbar {
         display: hidden;
+      }
+
+      #scroll:active{
+        background-color: rgba(0,0,0,0.4);
+      }
+      
+      #scroll:hover{
+        background-color: rgba(0,0,0,0.6);
       }
 
       /* title */
