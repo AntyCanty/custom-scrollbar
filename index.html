@@ -182,7 +182,9 @@
         // listen to the scrollable container
         scroller.addEventListener("scroll", (e) => {
           const percentage = calcPercentage(e, scrollerDragger, scroll);
-          scroll.style.top = percentage + "%";
+          if(!attach) {
+            scroll.style.top = percentage + "%";
+          }
         });
 
         mountItems(30);
