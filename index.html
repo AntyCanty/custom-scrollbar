@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Youtube Scroller</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: sans-serif;
+      }
+
+      body {
+        height: 100vh;
+        background-color: #212529;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #box {
+        height: calc(100vh - 20%);
+        width: calc(100vw - 60%);
+        min-width: 400px;
+        background-color: #fdfdff;
+        display: grid;
+        grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 50px [five] 20px [end];
+        grid-template-rows: [row1-start] 20% [row1-end] auto [third-line] 20% [last-line];
+      }
+
+      #scroller {
+        /* background-color: #c1dbb3; */
+        grid-column-start: line3;
+        grid-column-end: col4-start;
+        grid-row-start: row1-end;
+        grid-row-end: third-line;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(auto, 1fr);
+        padding: 1em;
+        gap: 10px 2px;
+        overflow-y: scroll;
+        outline: 1px solid black;
+      }
+
+      #scroller::-webkit-scrollbar {
+        display: none;
+      }
+
+      #scrollerDragger {
+        grid-column-start: five;
+        grid-column-end: end;
+        grid-row-start: row1-end;
+        grid-row-end: third-line;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        /* padding: 4px; */
+      }
+      #scroll {
+        border-radius: 10px;
+        position: absolute;
+        width: 40%;
+        background-color: #222222;
+        min-height: 30px;
+        cursor: pointer;
+        /* transition: all 0.1s cubic-bezier(0.075, 0.82, 0.165, 1); */
+        /* transition: all 0.4s ease; */
+      }
+
+      .item {
+        background-color: #000814;
+        height: 200px;
+        padding: 1em;
+      }
+
+      .item:hover {
+        background-color: whitesmoke;
+        border: 1px solid #000814;
+        transform: scale(1.02); /* scale up the item */
+        transition: all 0.4s ease;
+      }
+
+      #scroller::-webkit-scrollbar {
+        display: hidden;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="box">
+      <div id="scroller"></div>
+      <div id="scrollerDragger">
+        <div id="scroll"></div>
+      </div>
+    </div>
+
+    <script>
+      (() => {
+        const scroller = document.querySelector("#scroller");
+        const scrollerDragger = document.querySelector("#scrollerDragger");
+        const scroll = document.querySelector("#scroll");
+        let counter = 0;
+        scroller.addEventListener("scroll", (e) => {
+          const percentage = calcPercentage(e, scrollerDragger, scroll);
+          scroll.style.top = percentage + "%";
+        });
+
+        mountItems(30);
+        handleScrollerHeight(scroller, scroll);
+
+        // implementations
+        function calcPercentage(e, scroller, scroll) {
+          // calculate factor
+          handleScrollerHeight(e.target, scroll);
+          const maxPerc =
+            (scroller.clientHeight - scroll.clientHeight) /
+            scroller.clientHeight;
+
+          const percentage =
+            (e.target.scrollTop /
+              (e.target.scrollHeight - e.target.clientHeight)) *
+            100;
+          if (percentage > 70) {
+            if (counter < 3) {
+              console.log("fetch new data");
+              mountItems(4);
+              counter++;
+            }
+          }
+          return percentage * maxPerc;
+        }
+
+        function mountItems(n) {
+          let item = null;
+          // generating content for scroll container
+          for (let i = 0; i < n; i++) {
+            item = document.createElement("div");
+            item.classList.add("item");
+            scroller.appendChild(item);
+          }
+        }
+
+        function handleScrollerHeight(scrolledContainer, scroll) {
+          const factor = scroller.clientHeight / scroller.scrollHeight;
+          const minHeight = scroller.clientHeight;
+          const currentScrollerHeight = minHeight * factor;
+          scroll.style.height = currentScrollerHeight + "px";
+        }
+      })();
+    </script>
+  </body>
+</html>
