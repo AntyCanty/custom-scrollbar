@@ -80,8 +80,8 @@
         background-color: #000814;
         height: 200px;
         padding: 1em;
-        display:flex;
-        align-items:center;
+        display: flex;
+        align-items: center;
         justify-content: center;
       }
 
@@ -96,12 +96,12 @@
         display: hidden;
       }
 
-      #scroll:active{
-        background-color: rgba(0,0,0,0.4);
+      #scroll:active {
+        background-color: rgba(0, 0, 0, 0.4);
       }
-      
-      #scroll:hover{
-        background-color: rgba(0,0,0,0.6);
+
+      #scroll:hover {
+        background-color: rgba(0, 0, 0, 0.6);
       }
 
       /* title */
@@ -134,7 +134,7 @@
         grid-column-end: end;
         padding: 10px;
         margin: 0 auto;
-        display:flex;
+        display: flex;
         flex-direction: column;
       }
     </style>
@@ -163,7 +163,7 @@
       (() => {
         /* FIXME: name variables better please */
 
-        /* 
+        /*
         <div id="scroller"></div>
         <div id="scrollerDragger">
           <div id="scroll"></div>
@@ -193,12 +193,12 @@
         // listen to the scrollable container
         scroller.addEventListener("scroll", (e) => {
           const percentage = calcPercentage(e, scrollerDragger, scroll);
-          if(!attach) {
+          if (!attach) {
             scroll.style.top = percentage + "%";
           }
         });
 
-        mountItems(30);
+        mountItems(20);
         handleScrollerHeight(scroller, scroll);
 
         // event listeners
@@ -208,12 +208,19 @@
           }
 
           if (attach) {
+            const max =
+              (scrollerDragger.clientHeight - scroll.clientHeight) /
+              scrollerDragger.clientHeight;
             const percentage =
-              (100 * (e.clientY - 243)) / scrollerDragger.clientHeight;
-
+              (100 * (e.clientY - scrollerDragger.offsetTop)) /
+              scrollerDragger.clientHeight;
             const goTo = (percentage / 100) * scroller.scrollHeight;
             scroller.scrollTo({ top: goTo, behavior: "auto" });
-            scroll.style.top = e.clientY - 243 - scroll.clientHeight / 2 + "px";
+            scroll.style.top =
+              e.clientY -
+              scrollerDragger.offsetTop -
+              scroll.clientHeight / 2 +
+              "px";
           }
         });
         scroll.addEventListener("mousedown", (e) => {
@@ -245,9 +252,9 @@
         // implementations
         function check(e, scrollContainer, scroll) {
           return (
-            e.clientY - 243 + scroll.clientHeight / 2 >
+            e.clientY - scrollContainer.offsetTop + scroll.clientHeight / 2 >
               scrollContainer.clientHeight ||
-            e.clientY - 243 - scroll.clientHeight / 2 < 0
+            e.clientY - scrollContainer.offsetTop - scroll.clientHeight / 2 < 0
           );
         }
         function calcPercentage(e, scroller, scroll) {
@@ -264,7 +271,7 @@
           if (percentage > 70) {
             if (counter < 3) {
               console.log("fetch new data");
-              mountItems(4);
+              // mountItems(4);
               counter++;
             }
           }
