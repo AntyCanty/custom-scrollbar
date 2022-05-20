@@ -28,17 +28,17 @@
 
       #box {
         height: calc(100vh - 20%);
-        width: calc(100vw - 60%);
+        width: calc(100vw - 40%);
         min-width: 400px;
         background-color: #fdfdff;
         display: grid;
-        grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 50px [five] 20px [end];
+        grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 10px [five] 20px [end];
         grid-template-rows: [row1-start] 20% [row1-end] auto [third-line] 10% [last-line] 80px [another];
       }
 
       #scroller {
         /* background-color: #c1dbb3; */
-        grid-column-start: line3;
+        grid-column-start: first;
         grid-column-end: col4-start;
         grid-row-start: row1-end;
         grid-row-end: third-line;
@@ -46,9 +46,15 @@
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(auto, 1fr);
         padding: 1em;
-        gap: 10px 2px;
+        gap: 10px 10px;
         overflow-y: scroll;
         outline: 1px solid black;
+      }
+
+      @media screen and (min-width: 550px) {
+        #scroller {
+          grid-template-columns: repeat(2, 1fr);
+        }
       }
 
       #scroller::-webkit-scrollbar {
@@ -56,8 +62,8 @@
       }
 
       #scrollerDragger {
-        grid-column-start: five;
-        grid-column-end: end;
+        grid-column-start: col4-start;
+        grid-column-end: five;
         grid-row-start: row1-end;
         grid-row-end: third-line;
         position: relative;
@@ -172,6 +178,7 @@
         const scroller = document.querySelector("#scroller");
 
         const scrollerDragger = document.querySelector("#scrollerDragger");
+
         const scroll = document.querySelector("#scroll");
         // some utility colors :)
         const colors = [
@@ -202,6 +209,10 @@
         handleScrollerHeight(scroller, scroll);
 
         // event listeners
+        scrollerDragger.addEventListener("click", (e) => {
+          // TODO: move the bar to the point clicked;
+          console.log(e);
+        });
         scrollerDragger.addEventListener("mousemove", (e) => {
           if (check(e, scrollerDragger, scroll)) {
             return;
