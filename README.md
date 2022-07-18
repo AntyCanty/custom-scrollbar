@@ -5,3 +5,11 @@ but please if possible change only JavaScript implementation and of course feel 
 name to the Author title.
 
 
+
+## general structure of the Custom Scroller
+```html
+      <div id="scroller"></div>
+      <div id="scrollerDragger">
+        <div id="scroll"></div>
+      </div>
+```
