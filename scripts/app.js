@@ -19,9 +19,17 @@ class Utility {
         }
     }
 
-    
+
 }
 
+class CustomScrollbar {
+    static handleScrollerHeight(scroller, scroll) {
+        const factor = scroller.clientHeight / scroller.scrollHeight;
+        const minHeight = scroller.clientHeight;
+        const currentScrollerHeight = minHeight * factor;
+        scroll.style.height = currentScrollerHeight + "px";
+    }
+}
 
 
 
@@ -54,7 +62,7 @@ scroller.addEventListener("scroll", (e) => {
 Utility.mountItems(20, scroller);
 
 
-handleScrollerHeight(scroller, scroll);
+CustomScrollbar.handleScrollerHeight(scroller, scroll);
 
 // event listeners
 scrollerDragger.addEventListener("click", (e) => {
@@ -115,7 +123,7 @@ function check(e, scrollContainer, scroll) {
 }
 function calcPercentage(e, scroller, scroll) {
     // calculate factor
-    handleScrollerHeight(e.target, scroll);
+    CustomScrollbar.handleScrollerHeight(e.target, scroll);
     const maxPerc =
     (scroller.clientHeight - scroll.clientHeight) /
     scroller.clientHeight;
@@ -133,6 +141,7 @@ function calcPercentage(e, scroller, scroll) {
     }
     return percentage * maxPerc;
 }
+
 function handleScrollerHeight(scrolledContainer, scroll) {
     const factor = scroller.clientHeight / scroller.scrollHeight;
     const minHeight = scroller.clientHeight;
