@@ -1,0 +1,139 @@
+/* SPLIT STUFF  */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    height: 100vh;
+    background-color: #212529;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  div {
+    font-family: sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+
+  #box {
+    height: calc(100vh - 20%);
+    width: calc(100vw - 40%);
+    min-width: 400px;
+    background-color: #fdfdff;
+    display: grid;
+    grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 10px [five] 20px [end];
+    grid-template-rows: [row1-start] 20% [row1-end] auto [third-line] 10% [last-line] 80px [another];
+  }
+
+  #scroller {
+    /* background-color: #c1dbb3; */
+    grid-column-start: first;
+    grid-column-end: col4-start;
+    grid-row-start: row1-end;
+    grid-row-end: third-line;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+    padding: 1em;
+    gap: 10px 10px;
+    overflow-y: scroll;
+    outline: 1px solid black;
+  }
+
+  @media screen and (min-width: 550px) {
+    #scroller {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  #scroller::-webkit-scrollbar {
+    display: none;
+  }
+
+  #scrollerDragger {
+    grid-column-start: col4-start;
+    grid-column-end: five;
+    grid-row-start: row1-end;
+    grid-row-end: third-line;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    /* padding: 4px; */
+  }
+  #scroll {
+    border-radius: 10px;
+    position: absolute;
+    width: 40%;
+    background-color: #222222;
+    min-height: 30px;
+    cursor: pointer;
+    /* transition: all 0.1s cubic-bezier(0.075, 0.82, 0.165, 1); */
+    /* transition: all 0.4s ease; */
+  }
+
+  .item {
+    background-color: #000814;
+    height: 200px;
+    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .item:hover {
+    background-color: whitesmoke;
+    border: 1px solid #000814;
+    transform: scale(1.02); /* scale up the item */
+    transition: all 0.4s ease;
+  }
+
+  #scroller::-webkit-scrollbar {
+    display: hidden;
+  }
+
+  #scroll:active {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+
+  #scroll:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+
+  /* title */
+  #title {
+    background-color: #fdfdff;
+    grid-row-start: row1-start;
+    grid-row-end: row1-end;
+    grid-column-start: first;
+    grid-column-end: end;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #051923;
+  }
+
+  .box-message {
+    height: 50%;
+    text-align: center;
+  }
+
+  .box-message b {
+    color: gray;
+  }
+
+  .box-info {
+    background-color: #fdfdff;
+    grid-row-start: last-line;
+    grid-row-end: another;
+    grid-column-start: first;
+    grid-column-end: end;
+    padding: 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+  }
