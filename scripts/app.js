@@ -6,8 +6,23 @@ const scrollerDragger = document.querySelector("#scrollerDragger");
 const scroll = document.querySelector("#scroll");
 
 
-// TODO: please a better dragging logic, current one is full of buggy behaviour,
-// and better calcs 
+class Utility {
+    static mountItems(n, scroller) {
+        let item = null;
+        // generating content for scroll container
+        for (let i = 0; i < n; i++) {
+            item = document.createElement("div");
+            item.classList.add("item");
+            item.style.backgroundColor = colors[random(0, colors.length)];
+            item.textContent = "hello world";
+            scroller.appendChild(item);
+        }
+    }
+
+    
+}
+
+
 
 
 // some utility colors :)
@@ -35,7 +50,10 @@ scroller.addEventListener("scroll", (e) => {
     }
 });
 
-mountItems(20);
+
+Utility.mountItems(20, scroller);
+
+
 handleScrollerHeight(scroller, scroll);
 
 // event listeners
@@ -43,6 +61,8 @@ scrollerDragger.addEventListener("click", (e) => {
     // TODO: move the bar to the point clicked;
     console.log(e);
 });
+
+
 scrollerDragger.addEventListener("mousemove", (e) => {
     if (check(e, scrollerDragger, scroll)) {
     return;
@@ -64,12 +84,17 @@ scrollerDragger.addEventListener("mousemove", (e) => {
         "px";
     }
 });
+
+
 scroll.addEventListener("mousedown", (e) => {
     attach = true;
 });
+
+
 scroll.addEventListener("mouseup", (e) => {
     attach = false;
 });
+
 scrollerDragger.addEventListener("mouseup", (e) => {
     attach = false;
 });
@@ -78,17 +103,7 @@ scrollerDragger.addEventListener("mouseup", (e) => {
 function random(min, max) {
     return Math.floor(Math.random() * max) + min;
 }
-function mountItems(n) {
-    let item = null;
-    // generating content for scroll container
-    for (let i = 0; i < n; i++) {
-    item = document.createElement("div");
-    item.classList.add("item");
-    item.style.backgroundColor = colors[random(0, colors.length)];
-    item.textContent = "hello world";
-    scroller.appendChild(item);
-    }
-}
+
 
 // implementations
 function check(e, scrollContainer, scroll) {
