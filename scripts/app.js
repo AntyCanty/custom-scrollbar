@@ -6,6 +6,8 @@ const scrollerDragger = document.querySelector("#scrollerDragger");
 const scroll = document.querySelector("#scroll");
 
 
+// TODO: give a better HTML Semantic please
+
 class Utility {
     static mountItems(n, scroller) {
         let item = null;
