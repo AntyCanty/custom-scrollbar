@@ -45,6 +45,7 @@ class CustomScrollbar {
         this.scroller = document.querySelector("#scroller");
         this.scrollerDragger = document.querySelector("#scrollerDragger");
         this.scroll = document.querySelector("#scroll");
+        this.attach = false;
     }
 
     handleScrollerHeight() {
@@ -78,10 +79,33 @@ class CustomScrollbar {
         Utility.mountItems(20, this.scroller);
 
 
-        scroller.addEventListener('scroll', (e) =>  {
+        this.scroller.addEventListener('scroll', (e) =>  {
             const percentage = this.calcPercentage(e);
-            if (!attach) this.scroll.style.top = percentage + "%";
+            if (!this.attach) this.scroll.style.top = percentage + "%";
         });
+
+        this.scrollerDragger.addEventListener("mousemove", (e) => {
+            if (this.check(e)) {
+                return;
+            }
+        
+            if (this.attach) {
+            const max =
+                (this.scrollerDragger.clientHeight - this.scroll.clientHeight) /
+                this.scrollerDragger.clientHeight;
+            const percentage =
+                (100 * (e.clientY - this.scrollerDragger.offsetTop)) /
+                this.scrollerDragger.clientHeight;
+            const goTo = (percentage / 100) * this.scroller.scrollHeight;
+            this.scroller.scrollTo({ top: goTo, behavior: "auto" });
+            this.scroll.style.top =
+                e.clientY -
+                scrollerDragger.offsetTop -
+                scroll.clientHeight / 2 +
+                "px";
+            }
+        });
+
     }
 
     check(e) {
@@ -95,34 +119,13 @@ class CustomScrollbar {
 
 
 
-let attach = false;
 
 
 // happens all here 
 new CustomScrollbar().init();
 
 
-scrollerDragger.addEventListener("mousemove", (e) => {
-    if (check(e, scrollerDragger, scroll)) {
-        return;
-    }
 
-    if (attach) {
-    const max =
-        (scrollerDragger.clientHeight - scroll.clientHeight) /
-        scrollerDragger.clientHeight;
-    const percentage =
-        (100 * (e.clientY - scrollerDragger.offsetTop)) /
-        scrollerDragger.clientHeight;
-    const goTo = (percentage / 100) * scroller.scrollHeight;
-    scroller.scrollTo({ top: goTo, behavior: "auto" });
-    scroll.style.top =
-        e.clientY -
-        scrollerDragger.offsetTop -
-        scroll.clientHeight / 2 +
-        "px";
-    }
-});
 
 
 scroll.addEventListener("mousedown", (e) => {
