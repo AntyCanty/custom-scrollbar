@@ -106,7 +106,21 @@ class CustomScrollbar {
             }
         });
 
+        
+        this.scroll.addEventListener("mousedown", (e) => {
+            this.attach = true;
+        });
+
+        this.scroll.addEventListener("mouseup", (e) => {
+            this.attach = false;
+        });
+        
+                
+        this.scrollerDragger.addEventListener("mouseup", (e) => {
+            this.attach = false;
+        });
     }
+
 
     check(e) {
         return (
@@ -120,7 +134,6 @@ class CustomScrollbar {
 
 
 
-
 // happens all here 
 new CustomScrollbar().init();
 
@@ -128,15 +141,5 @@ new CustomScrollbar().init();
 
 
 
-scroll.addEventListener("mousedown", (e) => {
-    attach = true;
-});
 
 
-scroll.addEventListener("mouseup", (e) => {
-    attach = false;
-});
-
-scrollerDragger.addEventListener("mouseup", (e) => {
-    attach = false;
-});
