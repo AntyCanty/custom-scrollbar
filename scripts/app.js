@@ -20,16 +20,22 @@ class Utility {
             scroller.appendChild(item);
         }
     }
-
-
 }
 
 class CustomScrollbar {
-    static handleScrollerHeight(scroller, scroll) {
-        const factor = scroller.clientHeight / scroller.scrollHeight;
-        const minHeight = scroller.clientHeight;
+    constructor() {
+        this.scroller = document.querySelector("#scroller");
+        this.scrollerDragger = document.querySelector("#scrollerDragger");
+        this.scroll = document.querySelector("#scroll");
+
+        Utility.menuItem(20, this.scroller);
+    }
+
+    handleScrollerHeight() {
+        const factor = this.scroller.clientHeight / this.scroller.scrollHeight;
+        const minHeight = this.scroller.clientHeight;
         const currentScrollerHeight = minHeight * factor;
-        scroll.style.height = currentScrollerHeight + "px";
+        this.scroll.style.height = currentScrollerHeight + "px";
     }
 }
 
@@ -55,16 +61,12 @@ let counter = 0;
 // listen to the scrollable container
 scroller.addEventListener("scroll", (e) => {
     const percentage = calcPercentage(e, scrollerDragger, scroll);
-    if (!attach) {
-    scroll.style.top = percentage + "%";
-    }
+        if (!attach) scroll.style.top = percentage + "%";
 });
 
 
-Utility.mountItems(20, scroller);
-
-
-CustomScrollbar.handleScrollerHeight(scroller, scroll);
+// happens all here 
+new CustomScrollbar().handleScrollerHeight();
 
 // event listeners
 scrollerDragger.addEventListener("click", (e) => {

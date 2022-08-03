@@ -31,7 +31,6 @@
   }
 
   #scroller {
-    /* background-color: #c1dbb3; */
     grid-column-start: first;
     grid-column-end: col4-start;
     grid-row-start: row1-end;
