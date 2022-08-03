@@ -47,8 +47,6 @@ class CustomScrollbar {
         this.scroller = document.querySelector("#scroller");
         this.scrollerDragger = document.querySelector("#scrollerDragger");
         this.scroll = document.querySelector("#scroll");
-
-        Utility.mountItems(20, this.scroller);
     }
 
     handleScrollerHeight() {
@@ -57,21 +55,48 @@ class CustomScrollbar {
         const currentScrollerHeight = minHeight * factor;
         this.scroll.style.height = currentScrollerHeight + "px";
     }
+
+    calcPercentage(e) {
+        this.handleScrollerHeight(e.target, this.scroll);
+        const maxPerc =
+        (this.scroller.clientHeight - this.scroll.clientHeight) /
+        this.scroller.clientHeight;
+    
+        const percentage =
+        (e.target.scrollTop /
+            (e.target.scrollHeight - e.target.clientHeight)) *
+        100;
+        if (percentage > 70) {
+            if (counter < 3) {
+                console.log("fetch new data");
+                // mountItems(4);
+                counter++;
+            }
+        }
+        return percentage * maxPerc;
+    }
+
+    init() {
+        Utility.mountItems(20, this.scroller);
+
+
+        scroller.addEventListener('scroll', (e) =>  {
+            const percentage = this.calcPercentage(e);
+            if (!attach) this.scroll.style.top = percentage + "%";
+        });
+    }
+    
+
+
 }
 
 
 
 let attach = false;
 
-// listen to the scrollable container
-scroller.addEventListener("scroll", (e) => {
-    const percentage = calcPercentage(e, scrollerDragger, scroll);
-        if (!attach) scroll.style.top = percentage + "%";
-});
-
 
 // happens all here 
-new CustomScrollbar().handleScrollerHeight();
+new CustomScrollbar().init();
 
 // event listeners
 scrollerDragger.addEventListener("click", (e) => {
@@ -123,26 +148,6 @@ function check(e, scrollContainer, scroll) {
         scrollContainer.clientHeight ||
     e.clientY - scrollContainer.offsetTop - scroll.clientHeight / 2 < 0
     );
-}
-function calcPercentage(e, scroller, scroll) {
-    // calculate factor
-    CustomScrollbar.handleScrollerHeight(e.target, scroll);
-    const maxPerc =
-    (scroller.clientHeight - scroll.clientHeight) /
-    scroller.clientHeight;
-
-    const percentage =
-    (e.target.scrollTop /
-        (e.target.scrollHeight - e.target.clientHeight)) *
-    100;
-    if (percentage > 70) {
-    if (counter < 3) {
-        console.log("fetch new data");
-        // mountItems(4);
-        counter++;
-    }
-    }
-    return percentage * maxPerc;
 }
 
 function handleScrollerHeight(scrolledContainer, scroll) {
