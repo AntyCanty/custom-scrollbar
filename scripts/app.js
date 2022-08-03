@@ -6,30 +6,32 @@ const scrollerDragger = document.querySelector("#scrollerDragger");
 const scroll = document.querySelector("#scroll");
 
 let counter = 0;
-const colors = [
-    "#f4a261",
-    "#bde0fe",
-    "#e5989b",
-    "#cad2c5",
-    "#2ec4b6",
-    "#99d98c",
-    "#6c757d",
-    "#1985a1",
-    "#fe5f55",
-    "#61a5c2",
-    "#ee4266",
-];
+
 
 
 // FIXME: utility function This is not for prod
 class Utility {
+    static colors = [
+        "#f4a261",
+        "#bde0fe",
+        "#e5989b",
+        "#cad2c5",
+        "#2ec4b6",
+        "#99d98c",
+        "#6c757d",
+        "#1985a1",
+        "#fe5f55",
+        "#61a5c2",
+        "#ee4266",
+    ];
+
     static mountItems(n, scroller) {
         let item = null;
         // generating content for scroll container
         for (let i = 0; i < n; i++) {
             item = document.createElement("div");
             item.classList.add("item");
-            item.style.backgroundColor = colors[Utility.random(0, colors.length)];
+            item.style.backgroundColor = this.colors[Utility.random(0, this.colors.length)];
             item.textContent = "hello world";
             scroller.appendChild(item);
         }
