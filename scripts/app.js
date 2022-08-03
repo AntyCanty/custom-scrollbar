@@ -1,8 +1,3 @@
-// DOC THIS
-const scroller = document.querySelector("#scroller"); // the scrollable container
-const scrollerDragger = document.querySelector("#scrollerDragger"); // the custom scrollbar container
-const scroll = document.querySelector("#scroll"); // the scrollbar which is inside the custom scrollbar Container
-
 let counter = 0;
 
 
@@ -41,10 +36,29 @@ class Utility {
 }
 
 class CustomScrollbar {
-    constructor() {
-        this.scroller = document.querySelector("#scroller");
-        this.scrollerDragger = document.querySelector("#scrollerDragger");
-        this.scroll = document.querySelector("#scroll");
+    constructor(container) {
+        
+        const box = document.createElement('div');
+        box.classList.add('box');
+
+
+        if(!container)  throw new Error("Pass the container of the scrollableArea");
+
+        this.scroll = document.createElement('div');
+        this.scroll.classList.add('scroll');
+        this.scroller = document.createElement('div');
+        this.scroller.classList.add('scroller');
+        this.scrollDragger = document.createElement('div');
+        this.scrollDragger.classList.add('scrollDragger');
+        this.scrollDragger.appendChild(this.scroll);
+
+
+        box.appendChild(this.scroller);
+        box.appendChild(this.scrollDragger);
+
+
+        container.appendChild(box);
+
         this.attach = false;
     }
 
@@ -133,13 +147,5 @@ class CustomScrollbar {
 
 
 
-
 // happens all here 
-new CustomScrollbar().init();
-
-
-
-
-
-
-
+new CustomScrollbar(document.body).init();
