@@ -1,9 +1,7 @@
-
-
-// doc this a bit better please
-const scroller = document.querySelector("#scroller");
-const scrollerDragger = document.querySelector("#scrollerDragger");
-const scroll = document.querySelector("#scroll");
+// DOC THIS
+const scroller = document.querySelector("#scroller"); // the scrollable container
+const scrollerDragger = document.querySelector("#scrollerDragger"); // the custom scrollbar container
+const scroll = document.querySelector("#scroll"); // the scrollbar which is inside the custom scrollbar Container
 
 let counter = 0;
 
@@ -85,9 +83,14 @@ class CustomScrollbar {
             if (!attach) this.scroll.style.top = percentage + "%";
         });
     }
-    
 
-
+    check(e) {
+        return (
+            e.clientY - this.scrollerDragger.offsetTop + this.scroll.clientHeight / 2 >
+                this.scrollerDragger.clientHeight ||
+            e.clientY - this.scrollerDragger.offsetTop - this.scroll.clientHeight / 2 < 0
+        );
+    }
 }
 
 
@@ -97,12 +100,6 @@ let attach = false;
 
 // happens all here 
 new CustomScrollbar().init();
-
-// event listeners
-scrollerDragger.addEventListener("click", (e) => {
-    // TODO: move the bar to the point clicked;
-    console.log(e);
-});
 
 
 scrollerDragger.addEventListener("mousemove", (e) => {
@@ -140,19 +137,3 @@ scroll.addEventListener("mouseup", (e) => {
 scrollerDragger.addEventListener("mouseup", (e) => {
     attach = false;
 });
-
-// implementations
-function check(e, scrollContainer, scroll) {
-    return (
-    e.clientY - scrollContainer.offsetTop + scroll.clientHeight / 2 >
-        scrollContainer.clientHeight ||
-    e.clientY - scrollContainer.offsetTop - scroll.clientHeight / 2 < 0
-    );
-}
-
-function handleScrollerHeight(scrolledContainer, scroll) {
-    const factor = scroller.clientHeight / scroller.scrollHeight;
-    const minHeight = scroller.clientHeight;
-    const currentScrollerHeight = minHeight * factor;
-    scroll.style.height = currentScrollerHeight + "px";
-}
