@@ -1,6 +1,3 @@
-let counter = 0;
-
-
 
 // FIXME: utility function This is not for prod
 class Utility {
@@ -36,8 +33,17 @@ class Utility {
 }
 
 class CustomScrollbar {
+    box = null;
+    scroll = null;
+    scrollDragger = null;
+    scroller = null;
+
+
+
     constructor(container) {
-        
+
+
+
         const box = document.createElement('div');
         box.classList.add('box');
 
@@ -84,20 +90,11 @@ class CustomScrollbar {
         (e.target.scrollTop /
             (e.target.scrollHeight - e.target.clientHeight)) *
         100;
-        if (percentage > 70) {
-            if (counter < 3) {
-                console.log("fetch new data");
-                // mountItems(4);
-                counter++;
-            }
-        }
+
         return percentage * maxPerc;
     }
 
     init() {
-        Utility.mountItems(20, this.scroller);
-
-
         this.scroller.addEventListener('scroll', (e) =>  {
             const percentage = this.calcPercentage(e);
             if (!this.attach) this.scroll.style.top = percentage + "%";
@@ -138,6 +135,9 @@ class CustomScrollbar {
         this.scrollerDragger.addEventListener("mouseup", (e) => {
             this.attach = false;
         });
+
+        // return the reference to the scrollableContaier
+        return this.scroller;
     }
 
 
@@ -150,7 +150,5 @@ class CustomScrollbar {
     }
 }
 
-
-
-// happens all here 
-new CustomScrollbar(document.body).init();
+export default CustomScrollbar;
+export { Utility };
