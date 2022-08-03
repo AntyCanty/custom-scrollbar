@@ -5,43 +5,7 @@ const scroller = document.querySelector("#scroller");
 const scrollerDragger = document.querySelector("#scrollerDragger");
 const scroll = document.querySelector("#scroll");
 
-
-// TODO: give a better HTML Semantic please
-
-class Utility {
-    static mountItems(n, scroller) {
-        let item = null;
-        // generating content for scroll container
-        for (let i = 0; i < n; i++) {
-            item = document.createElement("div");
-            item.classList.add("item");
-            item.style.backgroundColor = colors[random(0, colors.length)];
-            item.textContent = "hello world";
-            scroller.appendChild(item);
-        }
-    }
-}
-
-class CustomScrollbar {
-    constructor() {
-        this.scroller = document.querySelector("#scroller");
-        this.scrollerDragger = document.querySelector("#scrollerDragger");
-        this.scroll = document.querySelector("#scroll");
-
-        Utility.menuItem(20, this.scroller);
-    }
-
-    handleScrollerHeight() {
-        const factor = this.scroller.clientHeight / this.scroller.scrollHeight;
-        const minHeight = this.scroller.clientHeight;
-        const currentScrollerHeight = minHeight * factor;
-        this.scroll.style.height = currentScrollerHeight + "px";
-    }
-}
-
-
-
-// some utility colors :)
+let counter = 0;
 const colors = [
     "#f4a261",
     "#bde0fe",
@@ -55,8 +19,47 @@ const colors = [
     "#61a5c2",
     "#ee4266",
 ];
+
+
+// FIXME: utility function This is not for prod
+class Utility {
+    static mountItems(n, scroller) {
+        let item = null;
+        // generating content for scroll container
+        for (let i = 0; i < n; i++) {
+            item = document.createElement("div");
+            item.classList.add("item");
+            item.style.backgroundColor = colors[Utility.random(0, colors.length)];
+            item.textContent = "hello world";
+            scroller.appendChild(item);
+        }
+    }
+
+    static random(min, max) {
+        return Math.floor(Math.random() * max) + min;
+    }
+}
+
+class CustomScrollbar {
+    constructor() {
+        this.scroller = document.querySelector("#scroller");
+        this.scrollerDragger = document.querySelector("#scrollerDragger");
+        this.scroll = document.querySelector("#scroll");
+
+        Utility.mountItems(20, this.scroller);
+    }
+
+    handleScrollerHeight() {
+        const factor = this.scroller.clientHeight / this.scroller.scrollHeight;
+        const minHeight = this.scroller.clientHeight;
+        const currentScrollerHeight = minHeight * factor;
+        this.scroll.style.height = currentScrollerHeight + "px";
+    }
+}
+
+
+
 let attach = false;
-let counter = 0;
 
 // listen to the scrollable container
 scroller.addEventListener("scroll", (e) => {
@@ -77,7 +80,7 @@ scrollerDragger.addEventListener("click", (e) => {
 
 scrollerDragger.addEventListener("mousemove", (e) => {
     if (check(e, scrollerDragger, scroll)) {
-    return;
+        return;
     }
 
     if (attach) {
@@ -110,12 +113,6 @@ scroll.addEventListener("mouseup", (e) => {
 scrollerDragger.addEventListener("mouseup", (e) => {
     attach = false;
 });
-
-// utility
-function random(min, max) {
-    return Math.floor(Math.random() * max) + min;
-}
-
 
 // implementations
 function check(e, scrollContainer, scroll) {
