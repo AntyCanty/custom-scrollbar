@@ -44,17 +44,22 @@ class CustomScrollbar {
 
         if(!container)  throw new Error("Pass the container of the scrollableArea");
 
+
         this.scroll = document.createElement('div');
         this.scroll.classList.add('scroll');
+
+
         this.scroller = document.createElement('div');
         this.scroller.classList.add('scroller');
-        this.scrollDragger = document.createElement('div');
-        this.scrollDragger.classList.add('scrollDragger');
-        this.scrollDragger.appendChild(this.scroll);
+
+
+        this.scrollerDragger = document.createElement('div');
+        this.scrollerDragger.classList.add('scrollerDragger');
+        this.scrollerDragger.appendChild(this.scroll);
 
 
         box.appendChild(this.scroller);
-        box.appendChild(this.scrollDragger);
+        box.appendChild(this.scrollerDragger);
 
 
         container.appendChild(box);
