@@ -1,4 +1,4 @@
-import CustomScrollbar, { Utility } from "../src/scripts/app";
+import CustomScrollbar, { Utility } from "../src";
 
 
 const Container = new CustomScrollbar(document.body).init();

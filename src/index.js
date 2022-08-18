@@ -1,5 +1,5 @@
 
-import "../assets/styles/index.css";
+import "./assets/styles/index.css";
 
 // FIXME: utility function This is not for prod
 class Utility {
