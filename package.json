@@ -1,0 +1,31 @@
+{
+  "name": "custom-scrollbar",
+  "version": "1.0.0",
+  "description": "Simple Custom Scrollbar Library",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --config ./demo/webpack.config.js --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ibrahim855/custom-scrollbar.git"
+  },
+  "keywords": [
+    "custom-scrollbar",
+    "scrollable",
+    "container"
+  ],
+  "author": "Ibrahim Qronfli",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ibrahim855/custom-scrollbar/issues"
+  },
+  "homepage": "https://github.com/ibrahim855/custom-scrollbar#readme",
+  "devDependencies": {
+    "css-loader": "^6.7.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.10.0"
+  }
+}
