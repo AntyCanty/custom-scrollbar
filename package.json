@@ -2,7 +2,10 @@
   "name": "custom-scrollbar",
   "version": "1.0.0",
   "description": "Simple Custom Scrollbar Library",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "files":[
+    "dist"
+  ],
   "babel": {
     "extends": "./config/.babelrc"
   },
