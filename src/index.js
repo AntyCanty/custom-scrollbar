@@ -110,9 +110,9 @@ class CustomScrollbar {
     }
 
 
-    // makeItMove(e) {
+    makeItMove(e) {
 
-    // }
+    }
 
     init() {
         this.scroller.addEventListener('scroll', (e) =>  {
