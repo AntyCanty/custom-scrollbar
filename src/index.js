@@ -56,8 +56,8 @@ class CustomScrollbar {
      */
     constructor(container, _) {
 
-        const box = document.createElement('div');
-        box.classList.add('box');
+        this.box = document.createElement('div');
+        this.box.classList.add('box');
 
 
         if(!container)  throw new Error("Pass the container of the scrollableArea");
@@ -83,9 +83,9 @@ class CustomScrollbar {
 
 
         // append everything to the DOM
-        box.appendChild(this.scroller);
-        box.appendChild(this.scrollerDragger);
-        container.appendChild(box);
+        this.box.appendChild(this.scroller);
+        this.box.appendChild(this.scrollerDragger);
+        container.appendChild(this.box);
     }
 
     handleScrollerHeight() {
