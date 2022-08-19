@@ -156,11 +156,12 @@ class CustomScrollbar {
 
         this.scroller.addEventListener('mouseup', () => this.attach = false);
 
+        this.box.addEventListener('mouseleave', () => {
+            this.attach = false;
+        });
         // return the reference to the scrollableContaier
         return this.scroller;
     }
-
-
     check(e) {
         return (
             e.clientY - this.scrollerDragger.offsetTop + this.scroll.clientHeight / 2 >
