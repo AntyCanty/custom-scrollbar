@@ -25,20 +25,24 @@
     display: grid;
     grid-template-columns: [first] 40px [line2] 50px [line3] auto [col4-start] 10px [five] 20px [end];
     grid-template-rows: [row1-start] 20% [row1-end] auto [third-line] 10% [last-line] 80px [another];
+
   }
 
   .scroller {
+    outline: 1px solid black;
+    overflow-y: scroll;
+    padding: 1em;
+  }
+
+  .scoller-layout-grid {
+    display: grid;
     grid-column-start: first;
     grid-column-end: col4-start;
     grid-row-start: row1-end;
     grid-row-end: third-line;
-    display: grid;
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: repeat(auto, 1fr);
-    padding: 1em;
     gap: 10px 10px;
-    overflow-y: scroll;
-    outline: 1px solid black;
   }
 
   @media screen and (min-width: 550px) {

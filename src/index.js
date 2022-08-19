@@ -46,10 +46,15 @@ class CustomScrollbar {
     scroll = null;
     scrollDragger = null;
     scroller = null;
+    attach = false;
 
 
-
-    constructor(container) {
+    /**
+     * 
+     * @param { HTMLElement } container
+     * @param { String } _
+     */
+    constructor(container, _) {
 
         const box = document.createElement('div');
         box.classList.add('box');
@@ -58,26 +63,29 @@ class CustomScrollbar {
         if(!container)  throw new Error("Pass the container of the scrollableArea");
 
 
-        this.scroll = document.createElement('div');
-        this.scroll.classList.add('scroll');
+
 
 
         this.scroller = document.createElement('div');
         this.scroller.classList.add('scroller');
+        if(_) this.scroller.classList.add(_);
 
+
+
+        // scrollbarContainer & scrollbar Element
+        this.scroll = document.createElement('div');
+        this.scroll.classList.add('scroll');
 
         this.scrollerDragger = document.createElement('div');
         this.scrollerDragger.classList.add('scrollerDragger');
         this.scrollerDragger.appendChild(this.scroll);
 
 
+
+        // append everything to the DOM
         box.appendChild(this.scroller);
         box.appendChild(this.scrollerDragger);
-
-
         container.appendChild(box);
-
-        this.attach = false;
     }
 
     handleScrollerHeight() {
@@ -125,7 +133,7 @@ class CustomScrollbar {
                 this.scroller.scrollTo({ top: goTo, behavior: "auto" });
                 this.scroll.style.top =
                     e.clientY -
-                    scrollerDragger.offsetTop -
+                    this.scrollerDragger.offsetTop -
                     scroll.clientHeight / 2 +
                     "px";
             }
