@@ -117,24 +117,27 @@ class CustomScrollbar {
 
         this.scrollerDragger.addEventListener("mousemove", (e) => {
             // FIXME: the check made below may be useless, remove it or find another solution
-            
-            // if (this.check(e)) {
-            //     return;
-            // }
+            if (this.check(e)) {
+                return;
+            }
         
             if (this.attach) {
                 const max =
                     (this.scrollerDragger.clientHeight - this.scroll.clientHeight) /
                     this.scrollerDragger.clientHeight;
+
                 const percentage =
                     (100 * (e.clientY - this.scrollerDragger.offsetTop)) /
                     this.scrollerDragger.clientHeight;
-                const goTo = (percentage / 100) * this.scroller.scrollHeight;
-                this.scroller.scrollTo({ top: goTo, behavior: "auto" });
+                
+                const newYPosition = (percentage / 100) * this.scroller.scrollHeight;
+
+                this.scroller.scrollTo({ top: newYPosition, behavior: "auto" });
+
                 this.scroll.style.top =
                     e.clientY -
                     this.scrollerDragger.offsetTop -
-                    scroll.clientHeight / 2 +
+                    this.scroll.clientHeight / 2 +
                     "px";
             }
         });
