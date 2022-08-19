@@ -109,23 +109,23 @@ class CustomScrollbar {
         return percentage * maxPerc;
     }
 
+
+    // makeItMove(e) {
+
+    // }
+
     init() {
         this.scroller.addEventListener('scroll', (e) =>  {
             const percentage = this.calcPercentage(e);
             if (!this.attach) this.scroll.style.top = percentage + "%";
         });
 
-        this.scrollerDragger.addEventListener("mousemove", (e) => {
-            // FIXME: the check made below may be useless, remove it or find another solution
+        this.scroller.addEventListener('mousemove', e => {
             if (this.check(e)) {
                 return;
             }
-        
+            
             if (this.attach) {
-                const max =
-                    (this.scrollerDragger.clientHeight - this.scroll.clientHeight) /
-                    this.scrollerDragger.clientHeight;
-
                 const percentage =
                     (100 * (e.clientY - this.scrollerDragger.offsetTop)) /
                     this.scrollerDragger.clientHeight;
@@ -142,7 +142,29 @@ class CustomScrollbar {
             }
         });
 
-        
+        this.scrollerDragger.addEventListener("mousemove", (e) => {
+            // FIXME: the check made below may be useless, remove it or find another solution
+            if (this.check(e)) {
+                return;
+            }
+            
+            if (this.attach) {
+                const percentage =
+                    (100 * (e.clientY - this.scrollerDragger.offsetTop)) /
+                    this.scrollerDragger.clientHeight;
+                
+                const newYPosition = (percentage / 100) * this.scroller.scrollHeight;
+
+                this.scroller.scrollTo({ top: newYPosition, behavior: "auto" });
+
+                this.scroll.style.top =
+                    e.clientY -
+                    this.scrollerDragger.offsetTop -
+                    this.scroll.clientHeight / 2 +
+                    "px";
+            }
+        });
+
         this.scroll.addEventListener("mousedown", (e) => {
             this.attach = true;
         });
@@ -150,11 +172,12 @@ class CustomScrollbar {
         this.scroll.addEventListener("mouseup", (e) => {
             this.attach = false;
         });
-        
-                
+
         this.scrollerDragger.addEventListener("mouseup", (e) => {
             this.attach = false;
         });
+
+        this.scroller.addEventListener('mouseup', () => this.attach = false);
 
         // return the reference to the scrollableContaier
         return this.scroller;
