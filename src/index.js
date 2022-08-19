@@ -31,7 +31,7 @@ class Utility {
             item = document.createElement("div");
             item.classList.add("item");
             item.style.backgroundColor = this.colors[Utility.random(0, this.colors.length)];
-            item.textContent = "hello world";
+            item.textContent = i + 1;
             scroller.appendChild(item);
         }
     }
