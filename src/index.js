@@ -111,7 +111,25 @@ class CustomScrollbar {
 
 
     makeItMove(e) {
+        if (this.check(e)) {
+            return;
+        }
+        
+        if (this.attach) {
+            const percentage =
+                (100 * (e.clientY - this.scrollerDragger.offsetTop)) /
+                this.scrollerDragger.clientHeight;
+            
+            const newYPosition = (percentage / 100) * this.scroller.scrollHeight;
 
+            this.scroller.scrollTo({ top: newYPosition, behavior: "auto" });
+
+            this.scroll.style.top =
+                e.clientY -
+                this.scrollerDragger.offsetTop -
+                this.scroll.clientHeight / 2 +
+                "px";
+        }
     }
 
     init() {
@@ -120,50 +138,9 @@ class CustomScrollbar {
             if (!this.attach) this.scroll.style.top = percentage + "%";
         });
 
-        this.scroller.addEventListener('mousemove', e => {
-            if (this.check(e)) {
-                return;
-            }
-            
-            if (this.attach) {
-                const percentage =
-                    (100 * (e.clientY - this.scrollerDragger.offsetTop)) /
-                    this.scrollerDragger.clientHeight;
-                
-                const newYPosition = (percentage / 100) * this.scroller.scrollHeight;
+        this.scroller.addEventListener('mousemove', this.makeItMove.bind(this));
 
-                this.scroller.scrollTo({ top: newYPosition, behavior: "auto" });
-
-                this.scroll.style.top =
-                    e.clientY -
-                    this.scrollerDragger.offsetTop -
-                    this.scroll.clientHeight / 2 +
-                    "px";
-            }
-        });
-
-        this.scrollerDragger.addEventListener("mousemove", (e) => {
-            // FIXME: the check made below may be useless, remove it or find another solution
-            if (this.check(e)) {
-                return;
-            }
-            
-            if (this.attach) {
-                const percentage =
-                    (100 * (e.clientY - this.scrollerDragger.offsetTop)) /
-                    this.scrollerDragger.clientHeight;
-                
-                const newYPosition = (percentage / 100) * this.scroller.scrollHeight;
-
-                this.scroller.scrollTo({ top: newYPosition, behavior: "auto" });
-
-                this.scroll.style.top =
-                    e.clientY -
-                    this.scrollerDragger.offsetTop -
-                    this.scroll.clientHeight / 2 +
-                    "px";
-            }
-        });
+        this.scrollerDragger.addEventListener("mousemove", this.makeItMove.bind(this));
 
         this.scroll.addEventListener("mousedown", (e) => {
             this.attach = true;
