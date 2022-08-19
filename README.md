@@ -28,3 +28,9 @@ this return a scrollable container, so we can do something like this
 ```
 
 and append stuff to it
+
+
+
+# Things Todo: 
+
+removing some bugs, making CDN for the lib, linting and pre-commit processes
