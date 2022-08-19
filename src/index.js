@@ -1,6 +1,13 @@
 
 import "./assets/styles/index.css";
 
+
+/*
+    TODO: Check if the container is scrollable 
+    TODO: Solve the resive of scrollbar when something new is inserted 
+*/
+
+
 // FIXME: utility function This is not for prod
 class Utility {
     static colors = [
